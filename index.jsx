@@ -2,112 +2,122 @@ import React from 'react';
 import {render} from 'react-dom';
 import { createStore,bindActionCreators } from 'redux';
 import { Provider ,connect} from 'react-redux';
+import Button from 'grommet/components/Button';
+import FingerPrint from 'grommet/components/icons/base/FingerPrint';
+import EditIcon from 'grommet/components/icons/base/edit';
+import User from 'grommet/components/icons/base/user';
+import Box from 'grommet/components/Box';
+import 'grommet/grommet-hpinc.min.css'
+import Search from 'grommet/components/Search';
+import Section from 'grommet/components/Section';
 
-//action
-function changeText(){
-    return {
-        type:'CHANGE_TEXT'
-    }
-}
+import Heading from 'grommet/components/Heading'
+import Sidebar from 'grommet/components/Sidebar';
+import Header from 'grommet/components/Header';
+import Title from 'grommet/components/Title';
+import Menu from 'grommet/components/Menu';
+import Anchor from 'grommet/components/Anchor';
+import Footer from 'grommet/components/Footer';
+import Split from 'grommet/components/Split';
 
-function buttonClick(){
-    return {
-        type:'BUTTON_CLICK'
-    }
-}
 
-//reducer
-const initialState = {
-    text: 'Hello'
-}
-function myApp(state = initialState, action) {
-    switch (action.type) {
-        case 'CHANGE_TEXT':
-            return {
-                text:state.text=='Hello'?'Stark':'Hello'
-            }
-        case 'BUTTON_CLICK':
-            return {
-                text: 'You just click button'
-            }
-        default:
-          return {
-            text:'Hello'
+class SearchT extends React.Component{
+    constructor(props) {
+        super(props);
+        this.state = {
+            text : 'hello'
         };
-    }
-}
-
-//store
-let store = createStore(myApp);
-
-
-class Hello extends React.Component{
-    constructor(props) {
-        super(props);
-        this.handleClick = this.handleClick.bind(this);
+        this.onchange = this.onchange.bind(this);
+        this.changeText= this.changeText.bind(this);
     }
 
-    handleClick(){
-        this.props.actions.changeText();
+    onchange(event){
+        this.setState({text: event.target.value});
+    }
+    changeText(){
+        this.setState({text:'You just click the button'});
     }
 
     render() {
+        let searchValue = this.state.text;
         return (
-            <h1 onClick={this.handleClick}> {this.props.text} </h1>
-        );
-    }
-}
-
-class Change extends React.Component{
-    constructor(props) {
-        super(props);
-        this.handleClick = this.handleClick.bind(this);
-    }
-
-    handleClick(){
-        this.props.actions.buttonClick();
-    }
-
-    render() {
-        return (
-            <button onClick={this.handleClick} >change</button>
-        );
-    }
-}
-
-class App extends React.Component{
-
-    constructor(props) {
-        super(props);
-    }
-
-    render() {
-        const { actions, text} = this.props;
-        return (
+            <Split flex='right'>
             <div>
-                <Hello actions={actions} text={text}/>
-                <Change actions={actions}/>
+                <Sidebar colorIndex='neutral-1'
+                         fixed={true}
+                         full={true}>
+                    <Header pad='medium'
+                            justify='between'>
+                        <Title>
+                            Title
+                        </Title>
+                    </Header>
+                    <Box flex='grow'
+                         justify='start'>
+                        <Menu primary={true}>
+                            <Anchor href='#'
+                                    className='active'>
+                                First
+                            </Anchor>
+                            <Anchor href='#'>
+                                Second
+                            </Anchor>
+                            <Anchor href='#'>
+                                Third
+                            </Anchor>
+                            <Anchor href='#'>
+                                Third
+                            </Anchor>
+                        </Menu>
+                    </Box>
+                    <Footer pad='medium'>
+                        <Button icon={<User />} />
+                    </Footer>
+                </Sidebar>
             </div>
+            <div styles={'display:none'}>
+                <Section  align="center" style='display:none'>
+                    <h1 strong={true} >
+                        {searchValue}
+                    </h1>
+                    <br/>
+                    <Search placeHolder='Search'
+                            inline={true}
+                            // value={searchValue}
+                            dropAlign={{"right": "right"}}
+                            onDOMChange={(event) => {
+                                this.onchange(event)
+                            }} />
+                    <br/>
+                    <Button icon={<EditIcon />}
+                            label='点击'
+                            onClick={(event) =>this.changeText()}
+                            href='#'/>
+                </Section>
+                <Section  align="center">
+                    <Search placeHolder='Search'
+                            inline={true}
+                        // value={searchValue}
+                            dropAlign={{"right": "right"}}
+                            onDOMChange={(event) => {
+                                this.onchange(event)
+                            }} />
+                    <br/>
+                    <Button icon={<EditIcon />}
+                            label='点击'
+                            onClick={(event) =>this.changeText()}
+                            href='#'/>
+                </Section>
+            </div>
+            </Split>
         );
     }
 }
 
-function mapStateToProps(state) {
-  return { text: state.text }
-}
 
-function mapDispatchToProps(dispatch){
-    return{
-        actions : bindActionCreators({changeText:changeText,buttonClick:buttonClick},dispatch)
-    }
-}
-
-App = connect(mapStateToProps,mapDispatchToProps)(App)
 
 render(
-    <Provider store={store}>
-        <App />
-    </Provider>,
+        <SearchT />,
     document.getElementById('root')
 )
 

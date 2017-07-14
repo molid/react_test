@@ -16,7 +16,11 @@
     "react-dom": "^0.14.6",
     "react-redux": "^4.0.6",
     "redux": "^3.0.5",
-    "redux-devtools": "^3.0.1"
+    "redux-devtools": "^3.0.1",
+    "grommet": "1.4.0",
+    "grommet-addons": "0.3.0",
+    "grommet-icon-loader": "^0.2.12",
+    "grommet-index": "1.0.0"
   },
   "repository": {
     "type": "git",
@@ -30,6 +34,8 @@
   "homepage": "https://github.com/starkwang/react-redux-es6-quickstart#readme",
   "devDependencies": {
     "babel": "^6.23.0",
+    "css-loader": "^0.28.4",
+    "json-loader": "^0.5.4",
     "style-loader": "^0.18.2",
     "webpack": "^1.15.0",
     "webpack-dev-server": "^1.15.0"
