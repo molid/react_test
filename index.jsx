@@ -19,16 +19,22 @@ import Menu from 'grommet/components/Menu';
 import Anchor from 'grommet/components/Anchor';
 import Footer from 'grommet/components/Footer';
 import Split from 'grommet/components/Split';
+import Layer from 'grommet/components/Layer';
+import Card from 'grommet/components/Card';
+import Paragraph from 'grommet/components/Paragraph';
 
 
 class SearchT extends React.Component{
     constructor(props) {
         super(props);
         this.state = {
-            text : 'hello'
+            text : 'hello',
+            myBoolean : true
         };
         this.onchange = this.onchange.bind(this);
         this.changeText= this.changeText.bind(this);
+        this.ccc=this.ccc.bind(this);
+        this.bbb=this.bbb.bind(this);
     }
 
     onchange(event){
@@ -37,9 +43,17 @@ class SearchT extends React.Component{
     changeText(){
         this.setState({text:'You just click the button'});
     }
-
+    ccc(){
+        this.setState({myBoolean: false});
+    }
+    bbb(){
+        this.setState({myBoolean: true});
+    }
     render() {
         let searchValue = this.state.text;
+        // let myBoolean=true;
+        // var myBoolean=new Boolean();
+        var myBoolean1=this.state.myBoolean;
         return (
             <Split flex='right'>
             <div>
@@ -75,14 +89,16 @@ class SearchT extends React.Component{
                     </Footer>
                 </Sidebar>
             </div>
-            <div styles={'display:none'}>
-                <Section  align="center" style='display:none'>
-                    <h1 strong={true} >
+            <div>
+                {/*<Layer closer={true} flush={true} hidden="true">*/}
+                <Section  align="center" styles='display:none' visible={false}>
+                    <h1 strong={true} visible={false}>
                         {searchValue}
                     </h1>
                     <br/>
                     <Search placeHolder='Search'
                             inline={true}
+                            visible={false}
                             // value={searchValue}
                             dropAlign={{"right": "right"}}
                             onDOMChange={(event) => {
@@ -93,22 +109,53 @@ class SearchT extends React.Component{
                             label='点击'
                             onClick={(event) =>this.changeText()}
                             href='#'/>
-                </Section>
-                <Section  align="center">
-                    <Search placeHolder='Search'
-                            inline={true}
-                        // value={searchValue}
-                            dropAlign={{"right": "right"}}
-                            onDOMChange={(event) => {
-                                this.onchange(event)
-                            }} />
                     <br/>
                     <Button icon={<EditIcon />}
-                            label='点击'
-                            onClick={(event) =>this.changeText()}
+                            label='点击跳转'
+                            onClick={(event)=>this.ccc()}
                             href='#'/>
                 </Section>
+                    <Layer closer={true} flush={true} hidden={myBoolean1}>
+                    <Button icon={<EditIcon />}
+                            label='关闭'
+                            onClick={(event) =>this.bbb()}
+                            href='#'/>
+                    <br/>
+                    <Card thumbnail='http://img.mp.itc.cn/upload/20170524/3dd5ba0bb91d4ef4acb2cfb4ed8c8fab_th.jpg'
+                              label='LeBron Raymone James'
+                              heading='LeBron Raymone James'
+                              description='LeBron Raymone James description providing more details.' />
+
+                        <Footer justify='between'>
+                            <Title>
+                                {/*<Logo />*/}
+                                Title
+                            </Title>
+                            <Box direction='row'
+                                 align='center'
+                                 pad={{"between": "medium"}}>
+                                <Paragraph margin='none'>
+                                    © 2016 Grommet Labs
+                                </Paragraph>
+                                <Menu direction='row'
+                                      size='small'
+                                      dropAlign={{"right": "right"}}>
+                                    <Anchor href='#'>
+                                        Support
+                                    </Anchor>
+                                    <Anchor href='#'>
+                                        Contact
+                                    </Anchor>
+                                    <Anchor href='#'>
+                                        About
+                                    </Anchor>
+                                </Menu>
+                            </Box>
+                        </Footer>
+                    </Layer>
+
             </div>
+
             </Split>
         );
     }
