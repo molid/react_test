@@ -22,6 +22,13 @@ import Split from 'grommet/components/Split';
 import Layer from 'grommet/components/Layer';
 import Card from 'grommet/components/Card';
 import Paragraph from 'grommet/components/Paragraph';
+import Accordion from 'grommet/components/Accordion';
+import AccordionPanel from 'grommet/components/AccordionPanel';
+import SocialShare from 'grommet/components/SocialShare';
+import Animate from 'grommet/components/Animate';
+ import Value from 'grommet/components/Value';
+
+
 
 
 class SearchT extends React.Component{
@@ -29,12 +36,14 @@ class SearchT extends React.Component{
         super(props);
         this.state = {
             text : 'hello',
-            myBoolean : true
+            myBoolean : true,
+            Animate_Bool : true,
+            label : "Leave"
         };
         this.onchange = this.onchange.bind(this);
         this.changeText= this.changeText.bind(this);
         this.ccc=this.ccc.bind(this);
-        this.bbb=this.bbb.bind(this);
+        this.aaa=this.aaa.bind(this);
     }
 
     onchange(event){
@@ -44,16 +53,30 @@ class SearchT extends React.Component{
         this.setState({text:'You just click the button'});
     }
     ccc(){
-        this.setState({myBoolean: false});
+        if(this.state.myBoolean == true)
+            this.setState({myBoolean: false});
+        else
+            this.setState({myBoolean: true});
     }
-    bbb(){
-        this.setState({myBoolean: true});
+    aaa(){
+    // this.refs.aa.props.style.display="none"
+        if(this.state.Animate_Bool ==true)
+            this.setState({Animate_Bool: false});
+            //this.state.Animate_Bool =false;
+        else
+            // this.state.Animate_Bool =true;
+            this.setState({Animate_Bool: true});
+        if(this.state.label=='Leave')
+            this.setState({label:'Enter'})
+        else
+            this.setState({label:"Leave"})
     }
     render() {
         let searchValue = this.state.text;
         // let myBoolean=true;
         // var myBoolean=new Boolean();
         var myBoolean1=this.state.myBoolean;
+        var mm=this.state.Animate_Bool;
         return (
             <Split flex='right'>
             <div>
@@ -114,33 +137,70 @@ class SearchT extends React.Component{
                             label='点击跳转'
                             onClick={(event)=>this.ccc()}
                             href='#'/>
+                    <Accordion openMulti={false}>
+                        <AccordionPanel heading='First Title'>
+                            <Paragraph>
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                            </Paragraph>
+                        </AccordionPanel>
+                        <AccordionPanel heading='Second Title'>
+                            <Paragraph>
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                            </Paragraph>
+                        </AccordionPanel>
+                        <AccordionPanel heading='Third Title'>
+                            <Paragraph>
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                            </Paragraph>
+                        </AccordionPanel>
+                    </Accordion>
+                    <Box pad={{"between": "medium"}}
+                         align='center'>
+
+                        <Button id ="but" label={this.state.label}
+                                primary={true}
+                        onClick={this.aaa}/>
+                        <Animate   ref="aa" visible={mm} enter={{"animation": "fade", "duration": 1000, "delay": 0}}
+                                 keep={true}>
+                            <Box direction='row'>
+                                <Box colorIndex='light-2'
+                                     margin='medium'
+                                     pad='large'>
+                                    <Value value={1} />
+                                </Box>
+                            </Box>
+                        </Animate>
+                    </Box>
                 </Section>
-                    <Layer closer={true} flush={true} hidden={myBoolean1}>
+                    <Layer dispaly = "none" closer={true} flush={true} hidden={myBoolean1}>
                     <Button icon={<EditIcon />}
                             label='关闭'
-                            onClick={(event) =>this.bbb()}
+                            onClick={(event) =>this.ccc()}
                             href='#'/>
                     <br/>
                     <Card thumbnail='http://img.mp.itc.cn/upload/20170524/3dd5ba0bb91d4ef4acb2cfb4ed8c8fab_th.jpg'
                               label='LeBron Raymone James'
                               heading='LeBron Raymone James'
-                              description='LeBron Raymone James description providing more details.' />
+                              description='LeBron Raymone James description providing more details.'/>
 
                         <Footer justify='between'>
-                            <Title>
-                                {/*<Logo />*/}
-                                Title
-                            </Title>
+                            {/*<Title>*/}
+                                {/*/!*<Logo />*!/*/}
+                                {/*Title*/}
+                            {/*</Title>*/}
+                            <SocialShare type='twitter'
+                                         link='https://grommet.io'
+                                         text='Sample text' />
                             <Box direction='row'
                                  align='center'
                                  pad={{"between": "medium"}}>
                                 <Paragraph margin='none'>
-                                    © 2016 Grommet Labs
+                                    © 2017 Molid Labs
                                 </Paragraph>
                                 <Menu direction='row'
                                       size='small'
                                       dropAlign={{"right": "right"}}>
-                                    <Anchor href='#'>
+                                    <Anchor href='https://grommet.io'  target='https://grommet.io'>
                                         Support
                                     </Anchor>
                                     <Anchor href='#'>
