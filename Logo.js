@@ -7,7 +7,7 @@ const CLASS_ROOT = 'ferret-logo';
 
 class Logo extends Component {
   render() {
-    const { busy, className, colorIndex, size, ...props } = this.props;
+    const { busy, className, colorIndex, size} = this.props;
     let classes = [CLASS_ROOT];
     if (busy) {
       classes.push(`${CLASS_ROOT}--busy`);
@@ -16,7 +16,7 @@ class Logo extends Component {
       classes.push(className);
     }
     return (
-      <SVGIcon {...props} className={classes.join('')}
+      <SVGIcon  className={classes.join('')}
         colorIndex={colorIndex} size={size} viewBox="0 0 120 120" version='1.1'
         type='logo' a11yTitle='Ferret Logo'>
         <g fill='none'>

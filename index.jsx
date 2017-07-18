@@ -31,6 +31,7 @@ import Animate from 'grommet/components/Animate';
 import LoginForm from 'grommet/components/LoginForm';
 import Logo from './Logo';
 import Promo from './Promo';
+import { sessionLogin } from './session';
 
 
 class SearchT extends React.Component{
@@ -46,6 +47,7 @@ class SearchT extends React.Component{
         this.changeText= this.changeText.bind(this);
         this.ccc=this.ccc.bind(this);
         this.aaa=this.aaa.bind(this);
+        this._onSubmit = this._onSubmit.bind(this);
     }
 
     onchange(event){
@@ -73,6 +75,10 @@ class SearchT extends React.Component{
         else
             this.setState({label:"Leave"})
     }
+    _onSubmit (fields) {
+        this.setState({ busy: true });
+        this.props.dispatch(sessionLogin('', fields.username, fields.password));
+    }
     render() {
         let searchValue = this.state.text;
         // let myBoolean=true;
@@ -88,7 +94,10 @@ class SearchT extends React.Component{
                     <span />
                     <LoginForm align="start"
                                logo={<Logo size="large" busy={this.state.busy} />}
-                               title={this.props.productName}
+                               title={"Molid"}
+                               forgotPassword={<Anchor href='#'
+                                                       label='Forgot password?' />}
+                               rememberMe={true}
                                onSubmit={this.state.busy ? null : this._onSubmit}
 
                                usernameType="text" />
